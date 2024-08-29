@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="mt-5">
+    <h1 class="text-center">Generador de Tablas de Verdad</h1>
+    <form method="POST" class="mt-4">
+        <div class="mb-3">
+            <label for="expression" class="form-label">Ingresa tu expresión lógica:</label>
+            <input type="text" class="form-control" id="expression" name="expression" placeholder="Ej: ¬(p∧q)→r"
+                required>
+        </div>
+
+        <!-- Botones para insertar operadores y variables -->
+        <div class="mb-3">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-secondary" onclick="insertText('¬')">¬</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('∧')">∧</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('∨')">∨</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('→')">→</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('↔')">↔</button>
+            </div>
+            <div class="btn-group mt-2" role="group">
+                <button type="button" class="btn btn-secondary" onclick="insertText('p')">p</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('q')">q</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('r')">r</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('s')">s</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('t')">t</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('u')">u</button>
+            </div>
+            <div class="btn-group mt-2" role="group">
+                <button type="button" class="btn btn-secondary" onclick="insertText('(')">(</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText(')')">)</button>
+                <button type="button" class="btn btn-danger" onclick="clearText()">AC</button>
+                <button type="button" class="btn btn-warning" onclick="deleteLastChar()">DEL</button>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Generar Tabla de Verdad</button>
+    </form>
+
+    {% if truth_table %}
+    <div class="mt-5">
+        <h2>Tabla de Verdad para: {{ expression }}</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    {% for var in expression if var in ['p', 'q', 'r', 's', 't', 'u'] %}
+                    <th>{{ var }}</th>
+                    {% endfor %}
+                    <th>Resultado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in truth_table %}
+                <tr>
+                    {% for value in row[0] %}
+                    <td>{{ 'V' if value else 'F' }}</td>
+                    {% endfor %}
+                    <td>{{ 'V' if row[1] else 'F' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    function insertText(text) {
+        document.getElementById('expression').value += text;
+    }
+
+    function clearText() {
+        document.getElementById('expression').value = '';
+    }
+
+    function deleteLastChar() {
+        var currentText = document.getElementById('expression').value;
+        document.getElementById('expression').value = currentText.slice(0, -1);
+    }
+</script>
+{% endblock %}
