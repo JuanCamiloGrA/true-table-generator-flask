@@ -48,13 +48,13 @@ def generate_truth_table(expr):
 
     return truth_table
 
-# Ejemplo de uso
-expression = "p ∧ r" 
-tabla_verdad = generate_truth_table(expression)
+# # Ejemplo de uso
+# expression = "p ∧ r" 
+# tabla_verdad = generate_truth_table(expression)
 
-if tabla_verdad:
-    print("Tabla de Verdad:")
-    for combinacion, resultado in tabla_verdad:
-        print(combinacion, resultado)
-else:
-    print("No se pudo generar la tabla de verdad debido a un error en la expresión.")
+# if tabla_verdad:
+#     print("Tabla de Verdad:")
+#     for combinacion, resultado in tabla_verdad:
+#         print(combinacion, resultado)
+# else:
+#     print("No se pudo generar la tabla de verdad debido a un error en la expresión.")

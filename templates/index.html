@@ -1,35 +1,39 @@
 {% extends "base.html" %}
 
-{% block title %}Inicio{% endblock %}
+{% block title %}Generador de Tablas de Verdad - Simplifica tu lógica{% endblock %} 
+
+{% block meta_description %}
+Genera tablas de verdad para expresiones lógicas complejas de forma fácil y rápida. Herramienta online gratuita para estudiantes y profesionales.
+{% endblock %}
 
 {% block content %}
 <div class="mt-5">
     <h1 class="text-center">Generador de Tablas de Verdad</h1>
+    <p class="lead text-center">Simplifica tus expresiones lógicas con nuestra herramienta gratuita.</p> 
     <form method="POST" class="mt-4">
         <div class="mb-3">
             <label for="expression" class="form-label">Ingresa tu expresión lógica:</label>
             <input type="text" class="form-control" id="expression" name="expression" placeholder="Ej: ¬(p∧q)→r"
-                required>
+                required aria-label="Campo para ingresar la expresión lógica"> 
         </div>
 
         <!-- Botones para insertar operadores y variables -->
         <div class="mb-3">
-            <div class="btn-group" role="group">
-                <button type="button" class="btn btn-secondary" onclick="insertText('¬')">¬</button>
-                <button type="button" class="btn btn-secondary" onclick="insertText('∧')">∧</button>
-                <button type="button" class="btn btn-secondary" onclick="insertText('∨')">∨</button>
-                <button type="button" class="btn btn-secondary" onclick="insertText('→')">→</button>
-                <button type="button" class="btn btn-secondary" onclick="insertText('↔')">↔</button>
+            <div class="btn-group" role="group" aria-label="Grupo de botones para operadores lógicos">
+                <button type="button" class="btn btn-secondary" onclick="insertText('¬')" aria-label="Botón para insertar negación">¬</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('∧')" aria-label="Botón para insertar conjunción">∧</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('∨')" aria-label="Botón para insertar disyunción">∨</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('→')" aria-label="Botón para insertar implicación">→</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('↔')" aria-label="Botón para insertar bicondicional">↔</button>
             </div>
-            <div class="btn-group mt-2" role="group">
-                <button type="button" class="btn btn-secondary" onclick="insertText('p')">p</button>
-                <button type="button" class="btn btn-secondary" onclick="insertText('q')">q</button>
-                <button type="button" class="btn btn-secondary" onclick="insertText('r')">r</button>
-                <button type="button" class="btn btn-secondary" onclick="insertText('s')">s</button>
-                <button type="button" class="btn btn-secondary" onclick="insertText('t')">t</button>
-                <button type="button" class="btn btn-secondary" onclick="insertText('u')">u</button>
+            <div class="btn-group mt-2" role="group" aria-label="Grupo de botones para variables">
+                <button type="button" class="btn btn-secondary" onclick="insertText('p')" aria-label="Botón para insertar variable p">p</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('q')" aria-label="Botón para insertar variable q">q</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('r')" aria-label="Botón para insertar variable r">r</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('s')" aria-label="Botón para insertar variable s">s</button>
+                <button type="button" class="btn btn-secondary" onclick="insertText('t')" aria-label="Botón para insertar variable t">t</button>
             </div>
-            <div class="btn-group mt-2" role="group">
+            <div class="btn-group mt-2" role="group" aria-label="Grupo de botones para paréntesis y control">
                 <button type="button" class="btn btn-secondary" onclick="insertText('(')">(</button>
                 <button type="button" class="btn btn-secondary" onclick="insertText(')')">)</button>
                 <button type="button" class="btn btn-danger" onclick="clearText()">AC</button>
@@ -41,15 +45,16 @@
     </form>
 
     {% if truth_table %}
-    <div class="mt-5">
+    <div class="mt-5" id="tabla-resultados"> 
         <h2>Tabla de Verdad para: {{ expression }}</h2>
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    {% for var in expression if var in ['p', 'q', 'r', 's', 't', 'u'] %}
-                    <th>{{ var }}</th>
+                    {% for var in expression if var in ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+                    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'] %}
+                    <th scope="col">{{ var }}</th> 
                     {% endfor %}
-                    <th>Resultado</th>
+                    <th scope="col">Resultado</th> 
                 </tr>
             </thead>
             <tbody>
@@ -65,6 +70,46 @@
         </table>
     </div>
     {% endif %}
+
+    <section class="features mt-5">
+        <div class="container">
+            <h2 class="text-center">Características de nuestro Generador de Tablas de Verdad</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <h3>Fácil de usar</h3>
+                        <p>Nuestra interfaz intuitiva te permite ingresar expresiones lógicas de forma rápida y sencilla. No necesitas conocimientos previos de programación ni de lógica formal para utilizar nuestra herramienta.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <h3>Resultados precisos</h3>
+                        <p>Nuestro algoritmo genera tablas de verdad precisas y completas para cualquier expresión lógica válida, incluyendo operadores como la negación (¬), conjunción (∧), disyunción (∨), implicación (→) y bicondicional (↔).</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <h3>Herramienta gratuita</h3>
+                        <p>Nuestro generador de tablas de verdad es completamente gratuito y accesible desde cualquier dispositivo con conexión a internet. No necesitas registrarte ni descargar ningún software.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mt-4">¿Para quién es útil esta herramienta?</h3>
+            <p>Nuestro generador de tablas de verdad es una herramienta invaluable para:</p>
+            <ul>
+                <li><strong>Estudiantes de lógica:</strong> Perfecto para comprender y practicar los conceptos básicos de la lógica proposicional.</li>
+                <li><strong>Profesores de matemáticas y filosofía:</strong> Ideal para crear ejemplos y ejercicios para sus clases.</li>
+                <li><strong>Programadores e ingenieros informáticos:</strong> Útil para verificar la validez de expresiones lógicas en el desarrollo de software y hardware.</li>
+                <li><strong>Cualquier persona interesada en la lógica:</strong> Una herramienta accesible para explorar y comprender el funcionamiento de la lógica formal.</li>
+            </ul>
+
+            <p class="call-to-action mt-4">
+                ¡Comienza a simplificar tus expresiones lógicas hoy mismo! Ingresa tu expresión en el campo de arriba y genera tu tabla de verdad en segundos.
+            </p>
+        </div>
+    </section>
+
 </div>
 
 <script>
